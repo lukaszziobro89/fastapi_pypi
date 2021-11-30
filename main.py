@@ -1,14 +1,32 @@
 import fastapi
 import uvicorn
-
+import fastapi_chameleon
+from views import home, account, packages
 
 app = fastapi.FastAPI()
 
 
-@app.get("/")
-def index():
-    return "Hello World"
+def main():
+    configure()
+    uvicorn.run(app, host='127.0.0.1', port=8000)
+
+
+def configure():
+    configure_templates()
+    configure_routes()
+
+
+def configure_routes():
+    app.include_router(home.router)
+    app.include_router(account.router)
+    app.include_router(packages.router)
+
+
+def configure_templates():
+    fastapi_chameleon.global_init('templates')
 
 
 if __name__ == '__main__':
-    uvicorn.run(app)
+    main()
+else:
+    configure()
