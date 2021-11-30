@@ -1,7 +1,9 @@
 anyio==3.4.0
 asgiref==3.4.1
+Chameleon==3.9.1
 click==8.0.3
 fastapi==0.70.0
+fastapi-chameleon==0.1.12
 h11==0.12.0
 idna==3.3
 pydantic==1.8.2
