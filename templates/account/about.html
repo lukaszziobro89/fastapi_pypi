@@ -1,0 +1,8 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" tal:omit-tag="True">
+        <h1>Your PyPI account</h1>
+
+        <div>Welcome to your account ${ user.name }!</div>
+
+    </div>
+</div>
