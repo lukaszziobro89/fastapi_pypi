@@ -1,8 +1,6 @@
-from typing import List
-
 from starlette.requests import Request
 
-from services import package_service, user_service
+from services import package_service
 from viewmodels.shared.viewmodel import ViewModelBase
 
 
@@ -15,5 +13,3 @@ class DetailsViewModel(ViewModelBase):
 
         if not self.package:
             return
-
-        self.x = 9
