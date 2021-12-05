@@ -19,5 +19,4 @@ def index(request: Request):
 @template(template_file='home/about.html')
 def about(request: Request):
     vm = ViewModelBase(request)
-    # TODO: use the vm
-    return {}
+    return vm.to_dict()
