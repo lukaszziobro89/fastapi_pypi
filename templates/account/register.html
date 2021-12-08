@@ -1,7 +1,7 @@
 <div metal:use-macro="load: ../shared/_layout.html">
     <div metal:fill-slot="content" tal:omit-tag="True">
     <div class="form-container">
-        <form action="" method="POST" class="account-form">
+        <form novalidate="novalidate" action="" method="POST" class="account-form">
             <h1>Register at PyPI</h1>
 
             <input name="name" type="text" placeholder=" Your name" class="form-control" value="${ name }" required>
