@@ -35,8 +35,6 @@ async def register(request: Request):
         return vm.to_dict()
 
     account = user_service.create_account(vm.name, vm.email, vm.password)
-    print(type(account))
-    print(account.__dict__)
 
     return fastapi.responses.RedirectResponse(url='/account', status_code=status.HTTP_302_FOUND)
 
