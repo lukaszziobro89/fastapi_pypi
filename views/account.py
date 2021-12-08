@@ -1,7 +1,9 @@
 import fastapi
 from fastapi_chameleon import template
+from starlette import status
 from starlette.requests import Request
 
+from services import user_service
 from viewmodels.account.account_viewmodel import AccountViewModel
 from viewmodels.account.login_viewmodel import LoginViewModel
 from viewmodels.account.register_viewmodel import RegisterViewModel
@@ -32,8 +34,11 @@ async def register(request: Request):
     if vm.error:
         return vm.to_dict()
 
-    print("TODO: REDIRECT")
-    return vm.to_dict()
+    account = user_service.create_account(vm.name, vm.email, vm.password)
+    print(type(account))
+    print(account.__dict__)
+
+    return fastapi.responses.RedirectResponse(url='/account', status_code=status.HTTP_302_FOUND)
 
 
 @router.get("/account/login")
