@@ -1,8 +1,11 @@
+from pathlib import Path
+
 import fastapi
 import uvicorn
 import fastapi_chameleon
 from starlette.staticfiles import StaticFiles
 
+from data import db_session
 from views import home, account, packages
 
 app = fastapi.FastAPI()
@@ -16,6 +19,12 @@ def main():
 def configure():
     configure_templates()
     configure_routes()
+    configure_db()
+
+
+def configure_db():
+    file = (Path(__file__).parent / 'db' / 'pypi.sqlite').absolute()
+    db_session.global_init(file.as_posix())
 
 
 def configure_routes():
