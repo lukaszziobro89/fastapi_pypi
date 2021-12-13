@@ -1,5 +1,3 @@
-from typing import Optional
-
 import validators
 from starlette.requests import Request
 
