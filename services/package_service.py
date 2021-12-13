@@ -42,16 +42,22 @@ def latest_releases(limit: int = 5) -> List[Package]:
 
 
 def get_package_by_id(package_name: str) -> Optional[Package]:
-    package = Package(
-        id=package_name,
-        summary="Summary",
-        description="Details/description",
-        home_page="www.wp.pl",
-        license="MIT",
-        author_name="Mark Newman"
-    )
-    return package
+    session = db_session.create_session()
+
+    try:
+        package = session.query(Package).filter(Package.id == package_name).first()
+        return package
+    finally:
+        session.close()
 
 
 def get_latest_release_for_package(package_name: str) -> Optional[Release]:
-    return Release(major_ver=1, minor_ver=2, build_ver=0, created_date=datetime.datetime.now())
+    session = db_session.create_session()
+
+    try:
+        release = session.query(Release).filter(Release.package_id == package_name)\
+            .order_by(Release.created_date.desc())\
+            .first()
+        return release
+    finally:
+        session.close()
