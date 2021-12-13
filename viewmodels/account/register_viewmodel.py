@@ -2,6 +2,7 @@ from typing import Optional
 import validators
 from starlette.requests import Request
 
+from services import user_service
 from viewmodels.shared.viewmodel import ViewModelBase
 
 
@@ -25,3 +26,5 @@ class RegisterViewModel(ViewModelBase):
             self.error = "Not a valid email."
         elif not self.password or len(self.password) < 5:
             self.error = "Your password is required and must be at 5 characters."
+        elif user_service.get_user_by_email(self.email):
+            self.error = "Email already taken. Log in instead?"
