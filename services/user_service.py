@@ -1,18 +1,17 @@
 from typing import Optional
 
 from passlib.handlers.sha2_crypt import sha512_crypt as crypto
+from sqlalchemy import select, func
 
 from data import db_session
 from data.user import User
 
 
-def user_count() -> int:
-    session = db_session.create_session()
-
-    try:
-        return session.query(User).count()
-    finally:
-        session.close()
+async def user_count() -> int:
+    async with db_session.create_async_session() as session:
+        query = select(func.count(User.id))
+        result = await session.execute(query)
+        return result.scalar()
 
 
 def create_account(name: str, email: str, password: str) -> User:
